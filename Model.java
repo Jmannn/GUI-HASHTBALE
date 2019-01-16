@@ -1,31 +1,262 @@
 import java.util.ArrayList;
+import java.lang.Math;
 /* The model for a GUI representation of hashtable.
  * @author Johnny Mann & Anaru Hudson
  */
 public class Model{
     /* Max size of HashTable */
-    public static final MAX_SIZE = 20;
+    public static final int MAX_SIZE = 20;
+    /* Hashing prime big enough to handle hashcode */
+    public static final long PRIME = 97654321012345679;  
     /* Stores hash table entries in an array of arraylists
      * to allow for chaining via arraylist
      */
     public static ArrayList<String>[] hashArray;
-
+    
+    /* Hashing types */
+    public static boolean divisionHash = false;//
+    public static boolean doubleHash = false;//
+    public static boolean universalHash = false;//
+    public static boolean cuckooHash = false;
+    public static boolean linearProbing = false;//
+    public static boolean quadraticProbing = false;//
+    /* Optional Hashing */
+    public static boolean chaining = false;
+    /* Universal has Param */
+    public static int a = 3;
+    public static int b = 4;
+    //return could not hash if no collision resolution is on
+ 
     public Model(int size){
+	this.hashArray = new ArrayList[size];
+	this.divisionHash = true;
     };
-
+ 
     public void resize(int size){
 	//create new table
 	//rehash it
 
     }
+    /* Call this after, setting change or reset of table */
+    public void rehash(){
+    }
     /* Turns a string into a key to be hashed */
     private int toKey(String value){
-	return value.hasCode();
+	return value.hashCode();
     }
-    /* Calculates hash from calc'd key and stores element */
-    public void addElement(String value){
+    /* Used for division, linear, quadratic */
+    public void divisionHash(String value){
+	//do hash
+	boolean didHash = false;
+	int i = 0;
+	int pos = toKey(value) % hashArray.size();
+	
+	while (didHash == false){
+	    //if a space is found
+	    //add
+	    //if colision && chain
+	    //call chain method
+	    //if linear probe, increment i
+	    //if quad probe, increment i and try hash by i square
+
+            //divhash
+	    if (this.hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;
+	    } else if (this.chaining == true){
+		chain(pos+i, value);
+		didHash = true;
+	    } else if (i==this.hashArray.length){
+		System.out.println("Could not hash");
+		didHash = true;
+	    }
+	    i++;
+	}
     }
-    public void changeKey(int){
+    /* Linear probing hash */
+    public void linearHash(String value){
+	//do hash
+	boolean didHash = false;
+	int i = 0;
+	int pos = (toKey(value) +i)% hashArray.size();
+	
+	while (didHash == false){
+	    //if a space is found
+	    //add
+	    //if colision && chain
+	    //call chain method
+	    //if linear probe, increment i
+	    //if quad probe, increment i and try hash by i square
+
+            //divhash
+	    if (this.hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;
+	    } else if (this.chaining == true){
+		chain(pos+i, value);
+		didHash = true;
+	    } else if (i==this.hashArray.length){
+		System.out.println("Could not hash");
+		didHash = true;
+	    }
+	    i++;
+	    pos = (toKey(value) +i)% hashArray.size();
+	}
     }
+    /* quadratic probing has */
+    public void quadHash(String value){
+	//do hash
+	boolean didHash = false;
+	int i = 0;
+	int pos = (toKey(value) +i)% hashArray.size();
+	
+	while (didHash == false){
+	    //if a space is found
+	    //add
+	    //if colision && chain
+	    //call chain method
+	    //if linear probe, increment i
+	    //if quad probe, increment i and try hash by i square
+
+            //divhash
+	    if (this.hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;
+	    } else if (this.chaining == true){
+		chain(pos+i, value);
+		didHash = true;
+	    } else if (i==this.hashArray.length){
+		System.out.println("Could not hash");
+		didHash = true;
+	    }
+	    i++;
+	    pos = (toKey(value) +Math.pow(i,2))% hashArray.size();
+	}
+    }
+    public void doubleHash(String value){
+	//do hash
+	boolean didHash = false;
+	int i = 0;
+	int pos = (toKey(value) +i)% hashArray.size();
+	
+	while (didHash == false){
+	    //if a space is found
+	    //add
+	    //if colision && chain
+	    //call chain method
+	    //if linear probe, increment i
+	    //if quad probe, increment i and try hash by i square
+
+            //divhash
+	    if (this.hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;
+	    } else if (this.chaining == true){
+		chain(pos+i, value);
+		didHash = true;
+	    } else if (i==this.hashArray.length){
+		System.out.println("Could not hash");
+		didHash = true;
+	    }
+	    i++;
+	    pos = (toKey(value) +i*(1 + toKey(value)%(hashArray.size()-1))) % hashArray.size();
+				    
+
+	}
+    }
+    public void universalHash(String value){
+	//do hash
+	boolean didHash = false;
+	int i = 0;
+	int pos = ((this.a * toKey(value) + this.b )% PRIME ) % hashArray.size();
+	
+	while (didHash == false){
+	    //if a space is found
+	    //add
+	    //if colision && chain
+	    //call chain method
+	    //if linear probe, increment i
+	    //if quad probe, increment i and try hash by i square
+
+            //divhash
+	    if (this.hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;
+	    } else if (this.chaining == true){
+		chain(pos+i, value);
+		didHash = true;
+	    } else {
+		System.out.println("Could not hash");
+		didHash = true;
+	    }
+
+	}
+    }
+    public void remove(String value){
+	for (int tableInd; tableInd < this.hashArray.length; i++){
+	    if (this.hashArray[tableInd] != null){
+		for (int chainInd = 0; chainInd < this.hashArray[tableInd].size(); i++){
+		    if (this.hashArray[tableInd].get(chainInd).equals(value)){
+			this.hashArray[tableInd].remove(chainInd);
+		    }
+		    if (this.hashArray[tableInd].isEmpty()){
+			this.hashArray[tableInd] = null;
+		    }
+		}
+	    }
+	}
+    }
+		
+    /* for changing unirversal hash a and b parameters*/
+    public void universalHashParam(int a, int b){
+	this.a = a;
+	this.b = b;
+	rehash();
+    }
+    /* Division hashing */	
+    public void changeHashing(String hashType, boolean chaining){
+	divisionHash = false;
+	linearProbing = false;
+	quadraticProbing = false;
+	doubleHash = false;
+	universalHash = false;
+	cuckooHash = false;
+
+	chaining = false;
+	if (hashType == "division"){
+	    divisionHash = true;
+	} else if (hashType == "double"){
+	    doubleHash = true;
+	} else if (hashType == "universal"){
+	    universalHash = true;
+	} else if (hashType == "cuckoo"){
+	    cuckooHash = true;
+	}else if (hashType == "linear"){
+	    linearProbing = true;
+	} else if (hashType == "quadratic"){
+	    quadraticProbing = true;
+	}
+	if (collisionResolution == "chaining"){
+	    chaining = true;
+	}
+
+    }
+    public int tableSize(){
+	return this.hashArray.length;
+    }
+    /* this is called if chaining is on 
+     * @param ind index of table to chain to
+     */
+    public void chain(int ind, String value){
+	this.hashArray[ind].add("value");
+    }
+
+
+
 
 }
