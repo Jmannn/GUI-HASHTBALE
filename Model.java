@@ -31,7 +31,34 @@ public class Model{
 	this.hashArray = new ArrayList[size];
 	this.divisionHash = true;
     };
- 
+    public void printTable(){
+	ArrayList<String> chain;
+	for (int i = 0; i < hashArray.length; i++){
+	    System.err.println(i);
+	    if (hashArray[i] != null){
+		chain = hashArray[i];
+		for (int j = 0; j < chain.size(); j++){
+		    System.err.print(chain.get(j) + " ");
+		}
+	    }
+	}
+    }
+    public void add(String value){
+	if (divisionHash){
+	    divisionHash(value);
+	} else if (doubleHash){
+	    doubleHash(value);
+	} else if (universalHash){
+	    universalHash(value);
+	} else if (cuckooHash){
+	    cuckooHash(value);
+	} else if (linearProbing){
+	    linearHash(value);
+	} else if (quadraticProbing){
+	    quadHash(value);
+	}
+	
+    }
     public void resize(int size){
 	//create new table
 	//rehash it
@@ -196,6 +223,36 @@ public class Model{
 	    }
 
 	}
+    }
+    public void cuckooHash(String value){
+	// could do this recursively, move in value and then move the value to another position
+	// re hash it until everything is unoccupied
+	// I guess you could move the entire chain if needed
+	boolean didHash = false;
+	String valueHolder;
+	int i = 0;
+	int pos = toKey(value) % hashArray.length;
+	int cuckooPos = 1 + toKey(value) % (hashArray.length-1);
+	while (didHash == false){
+	    if (hashArray[pos] == null){
+		this.hashArray[pos] = new ArrayList<String>();
+		this.hashArray[pos].add(value);
+		didHash = true;	
+	    } else {
+		valueHolder = this.hashArray[pos].get(0);
+		this.hashArray[pos].remove(0);
+		this.hashArray[pos].add(value);
+		if (hashArray[cuckooPos] == null){
+		    this.hashArray[cuckooPos] = new ArrayList<String>();
+		    this.hashArray[cuckooPos].add(valueHolder);
+		    didHash = true;
+		} else {
+		    cuckooHash(valueHolder);
+		    didHash = true;
+		}
+	    }
+	}
+
     }
     public void remove(String value){
 	for (int tableInd = 0; tableInd < this.hashArray.length; tableInd++){
