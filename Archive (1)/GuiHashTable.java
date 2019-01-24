@@ -1,0 +1,185 @@
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+
+
+public class GuiHashTable extends javax.swing.JFrame {
+
+    
+    public GuiHashTable() {
+        initComponents();
+    }
+
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableView = new javax.swing.JTable();
+        comboHashFunction = new javax.swing.JComboBox<>();
+        inputField = new javax.swing.JTextField();
+        buttonAdd = new javax.swing.JButton();
+        buttonRemove = new javax.swing.JButton();
+        checkChaining = new javax.swing.JCheckBox();
+        buttonReset = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tableView.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {0, null, null, null, null},
+                {1, null, null, null, null},
+                {2, null, null, null, null},
+                {3, null, null, null, null},
+                {4, null, null, null, null},
+                {5, null, null, null, null},
+                {6, null, null, null, null},
+                {7, null, null, null, null},
+                {8, null, null, null, null},
+                {9, null, null, null, null},
+                {10, null, null, null, null},
+                {11, null, null, null, null},
+                {12, null, null, null, null},
+                {13, null, null, null, null},
+                {14, null, null, null, null},
+                {15, null, null, null, null},
+                {16, null, null, null, null},
+                {17, null, null, null, null},
+                {18, null, null, null, null},
+                {19, null, null, null, null}
+            },
+            new String [] {
+                "Position", "Key1", "Key2", "Key3", "Key4"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        }
+    );
+    DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+    rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+    tableView.getColumn("Position").setCellRenderer( rightRenderer );
+    tableView.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(tableView);
+
+    comboHashFunction.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Linear", "Double", "Quadratic", "Division", "Cuckoo", "Universal" }));
+
+    buttonAdd.setText("Add");
+
+    buttonRemove.setText("Remove");
+
+    checkChaining.setText("Chaining");
+
+    buttonReset.setText("Reset");
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(comboHashFunction, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(checkChaining)
+                        .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(27, 27, 27)
+                    .addComponent(buttonRemove))
+                .addComponent(buttonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(comboHashFunction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonAdd)
+                        .addComponent(buttonRemove))
+                    .addGap(60, 60, 60)
+                    .addComponent(checkChaining)
+                    .addGap(43, 43, 43)
+                    .addComponent(buttonReset)
+                    .addGap(89, 89, 89))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+    );
+
+    pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    public JButton getResetButton(){
+        return buttonReset;
+    }
+    
+    public JButton getAddButton(){
+        return buttonAdd;
+    }
+    
+    public JButton getRemoveButton(){
+        return buttonRemove;
+    }
+    
+    public JCheckBox getCheckChaining(){
+        return checkChaining;
+    }
+    
+    public JComboBox getHashFunction(){
+        return comboHashFunction;
+    }
+    
+    public JTextField getInput(){
+        return inputField;
+    }
+    
+    public JTable getTable(){
+        return tableView;
+    }
+    
+    public JScrollPane getPane(){
+        return jScrollPane1;
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAdd;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton buttonRemove;
+    private javax.swing.JButton buttonReset;
+    private javax.swing.JCheckBox checkChaining;
+    private javax.swing.JComboBox<String> comboHashFunction;
+    private javax.swing.JTextField inputField;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableView;
+    // End of variables declaration//GEN-END:variables
+}

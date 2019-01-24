@@ -7,7 +7,7 @@ public class Model{
     /* Max size of HashTable */
     public static final int MAX_SIZE = 20;
     /* Hashing prime big enough to handle hashcode */
-    public static final long PRIME = 97654321012345679;  
+    public static final long PRIME = 1000000007;  
     /* Stores hash table entries in an array of arraylists
      * to allow for chaining via arraylist
      */
@@ -49,7 +49,7 @@ public class Model{
 	//do hash
 	boolean didHash = false;
 	int i = 0;
-	int pos = toKey(value) % hashArray.size();
+	int pos = toKey(value) % hashArray.length;
 	
 	while (didHash == false){
 	    //if a space is found
@@ -79,7 +79,7 @@ public class Model{
 	//do hash
 	boolean didHash = false;
 	int i = 0;
-	int pos = (toKey(value) +i)% hashArray.size();
+	int pos = (toKey(value) +i)% hashArray.length;
 	
 	while (didHash == false){
 	    //if a space is found
@@ -102,7 +102,7 @@ public class Model{
 		didHash = true;
 	    }
 	    i++;
-	    pos = (toKey(value) +i)% hashArray.size();
+	    pos = (toKey(value) +i)% hashArray.length;
 	}
     }
     /* quadratic probing has */
@@ -110,7 +110,7 @@ public class Model{
 	//do hash
 	boolean didHash = false;
 	int i = 0;
-	int pos = (toKey(value) +i)% hashArray.size();
+	int pos = (toKey(value) +i)% hashArray.length;
 	
 	while (didHash == false){
 	    //if a space is found
@@ -133,14 +133,14 @@ public class Model{
 		didHash = true;
 	    }
 	    i++;
-	    pos = (toKey(value) +Math.pow(i,2))% hashArray.size();
+	    pos = (int) (toKey(value) +Math.pow(i,2))% hashArray.length;
 	}
     }
     public void doubleHash(String value){
 	//do hash
 	boolean didHash = false;
 	int i = 0;
-	int pos = (toKey(value) +i)% hashArray.size();
+	int pos = (toKey(value) +i)% hashArray.length;
 	
 	while (didHash == false){
 	    //if a space is found
@@ -163,7 +163,7 @@ public class Model{
 		didHash = true;
 	    }
 	    i++;
-	    pos = (toKey(value) +i*(1 + toKey(value)%(hashArray.size()-1))) % hashArray.size();
+	    pos = (toKey(value) +i*(1 + toKey(value)%(hashArray.length-1))) % hashArray.length;
 				    
 
 	}
@@ -172,7 +172,7 @@ public class Model{
 	//do hash
 	boolean didHash = false;
 	int i = 0;
-	int pos = ((this.a * toKey(value) + this.b )% PRIME ) % hashArray.size();
+	int pos = (int) ((this.a * toKey(value) + this.b )% PRIME ) % hashArray.length;
 	
 	while (didHash == false){
 	    //if a space is found
@@ -198,9 +198,9 @@ public class Model{
 	}
     }
     public void remove(String value){
-	for (int tableInd; tableInd < this.hashArray.length; i++){
+	for (int tableInd = 0; tableInd < this.hashArray.length; tableInd++){
 	    if (this.hashArray[tableInd] != null){
-		for (int chainInd = 0; chainInd < this.hashArray[tableInd].size(); i++){
+		for (int chainInd = 0; chainInd < this.hashArray[tableInd].size(); chainInd++){
 		    if (this.hashArray[tableInd].get(chainInd).equals(value)){
 			this.hashArray[tableInd].remove(chainInd);
 		    }
@@ -241,7 +241,7 @@ public class Model{
 	} else if (hashType == "quadratic"){
 	    quadraticProbing = true;
 	}
-	if (collisionResolution == "chaining"){
+	if (chaining == true){
 	    chaining = true;
 	}
 
