@@ -40,6 +40,7 @@ public class Model{
 		for (int j = 0; j < chain.size(); j++){
 		    System.err.print(chain.get(j) + " ");
 		}
+		System.err.println();
 	    }
 	}
     }
@@ -69,7 +70,7 @@ public class Model{
     }
     /* Turns a string into a key to be hashed */
     private int toKey(String value){
-	return value.hashCode();
+	return Math.abs(value.hashCode());
     }
     /* Used for division, linear, quadratic */
     public void divisionHash(String value){
@@ -87,6 +88,8 @@ public class Model{
 	    //if quad probe, increment i and try hash by i square
 
             //divhash
+	    //System.err.println("hasharratlen " +this.hashArray.length);
+	    //System.err.println("pos" + pos);
 	    if (this.hashArray[pos] == null){
 		this.hashArray[pos] = new ArrayList<String>();
 		this.hashArray[pos].add(value);
@@ -95,7 +98,7 @@ public class Model{
 		chain(pos+i, value);
 		didHash = true;
 	    } else if (i==this.hashArray.length){
-		System.out.println("Could not hash");
+		System.out.println("Could not hash " + value);
 		didHash = true;
 	    }
 	    i++;
@@ -257,9 +260,13 @@ public class Model{
     public void remove(String value){
 	for (int tableInd = 0; tableInd < this.hashArray.length; tableInd++){
 	    if (this.hashArray[tableInd] != null){
+
 		for (int chainInd = 0; chainInd < this.hashArray[tableInd].size(); chainInd++){
 		    if (this.hashArray[tableInd].get(chainInd).equals(value)){
+			String vale = this.hashArray[tableInd].get(chainInd);
 			this.hashArray[tableInd].remove(chainInd);
+			System.err.println("removed " + vale);
+			break;
 		    }
 		    if (this.hashArray[tableInd].isEmpty()){
 			this.hashArray[tableInd] = null;
