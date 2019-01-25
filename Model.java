@@ -37,6 +37,7 @@ public class Model{
 	    System.err.println(i);
 	    if (hashArray[i] != null){
 		chain = hashArray[i];
+		System.err.println("chain " +chain.size());
 		for (int j = 0; j < chain.size(); j++){
 		    System.err.print(chain.get(j) + " ");
 		}
@@ -60,13 +61,21 @@ public class Model{
 	}
 	
     }
-    public void resize(int size){
-	//create new table
-	//rehash it
-
-    }
     /* Call this after, setting change or reset of table */
     public void rehash(){
+	ArrayList<String>[] storageArray = this.hashArray.clone();
+	for (int tableInd = 0; tableInd < this.hashArray.length; tableInd++){
+	    if (this.hashArray[tableInd] != null){
+
+		for (int chainInd = 0; chainInd < this.hashArray[tableInd].size(); chainInd++){	
+		    if (this.hashArray[tableInd].isEmpty()){
+			this.hashArray[tableInd] = null;
+		    } else {
+			add(this.hashArray[tableInd].get(chainInd));
+		    }
+		}
+	    }
+	}
     }
     /* Turns a string into a key to be hashed */
     private int toKey(String value){
@@ -221,7 +230,7 @@ public class Model{
 		chain(pos+i, value);
 		didHash = true;
 	    } else {
-		System.out.println("Could not hash");
+		System.out.println("Could not hash " + value);
 		didHash = true;
 	    }
 
@@ -291,7 +300,7 @@ public class Model{
 	universalHash = false;
 	cuckooHash = false;
 
-	chaining = false;
+	this.chaining = false;
 	if (hashType == "division"){
 	    divisionHash = true;
 	} else if (hashType == "double"){
@@ -306,8 +315,9 @@ public class Model{
 	    quadraticProbing = true;
 	}
 	if (chaining == true){
-	    chaining = true;
+	    this.chaining = true;
 	}
+	System.err.println("changed model to " + hashType + " chaining: " + String.valueOf(chaining) );
 
     }
     public int tableSize(){
@@ -317,7 +327,7 @@ public class Model{
      * @param ind index of table to chain to
      */
     public void chain(int ind, String value){
-	this.hashArray[ind].add("value");
+	this.hashArray[ind].add(value);
     }
 
 

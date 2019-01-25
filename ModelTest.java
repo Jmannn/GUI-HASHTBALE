@@ -6,12 +6,13 @@ public class ModelTest{
 
 	model.add("sup");
 	model.add("Dorg");
-	model.add("asdasdas asd sdjil");
+
 	model.add("poigels");
 
-	model.printTable();
-
 	model.remove("poigels");
+	model.printTable();
+	model.changeHashing("double", true);
+        model.add("asdasdas asd sdjil");
 	model.printTable();
 
 
