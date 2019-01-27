@@ -44,7 +44,7 @@ public class Controller {
                 {19, null, null, null, null}
             },
             new String [] {
-                "Position", "Key", "Chain1", "Chain2", "Chain3"
+                "Position", "Key1", "Key2", "Key3", "Key4"
             }
         ) {
             Class[] types = new Class [] {
@@ -132,13 +132,7 @@ public class Controller {
         int[] index = m.remove(input);
         System.out.println("Index remove: " + index[0] + " " + index[1]);
 	
-        if (index[0] == -1 || index[1] == -1){
-	    JOptionPane.showMessageDialog(g, "Value '"+input+"' does not exist in the hashtable", "Error", JOptionPane.INFORMATION_MESSAGE);
-	    return;
-	}
-	
 	Object valueAtIndex = g.getTable().getModel().getValueAt(index[0], index[1]+1);
-	
         if(input.equals("")){
             JOptionPane.showMessageDialog(g, "Please enter a value to remove!" , "Error", JOptionPane.INFORMATION_MESSAGE);
         } else if(valueAtIndex != null){

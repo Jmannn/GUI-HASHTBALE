@@ -330,18 +330,16 @@ public class Model{
 	    if (this.hashArray[tableInd] != null){
 
 		for (int chainInd = this.hashArray[tableInd].size()-1; chainInd >= 0 ; chainInd--){
-		    System.err.println(chainInd);
 		    if (this.hashArray[tableInd].get(chainInd).equals(value)){
 			String vale = this.hashArray[tableInd].get(chainInd);
 			this.hashArray[tableInd].remove(chainInd);
 			System.err.println("removed " + vale);
 			toRemove[0] = tableInd;
 			toRemove[1] = chainInd;
-			if (this.hashArray[tableInd].isEmpty()){
-			    this.hashArray[tableInd] = null;
-			}
-			
 			break;
+		    }
+		    if (this.hashArray[tableInd].isEmpty()){
+			this.hashArray[tableInd] = null;
 		    }
 		}
 	    }
